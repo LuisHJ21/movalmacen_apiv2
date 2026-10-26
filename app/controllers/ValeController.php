@@ -12,9 +12,14 @@ class ValeController
         $this->valeModel = new ValeModel();
     }
 
-    public function GenerarVale(Request $request, $conn = null)
+    public function GenerarVale(Request|array $request, $conn = null)
     {
-        $data = $request->getBody();
+
+        $data = $request instanceof Request
+        ? $request->getBody()
+        : $request;
+
+
         $conExterna = $conn !== null;
 
         if (!is_array($data) || !isset($data['tMov']) || !is_string($data['tMov']) || trim($data['tMov']) === '') {
