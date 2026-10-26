@@ -14,3 +14,21 @@ Stack trace:
 #2 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): UbicacionController->obtenerUbicacionesFiltro(Object(Request))
 #3 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
 #4 {main}
+[26-Oct-2026 14:38:36 America/Lima] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\WebSites\movAlmacen\API2\app\controllers/../core/Database.php.php' (include_path='.;C:\php\pear') in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php:3
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\routes\web.php(7): require_once()
+#1 D:\WebSites\movAlmacen\API2\index.php(11): require_once('D:\\WebSites\\mov...')
+#2 {main}
+  thrown in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php on line 3
+[26-Oct-2026 14:38:43 America/Lima] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\WebSites\movAlmacen\API2\app\controllers/../core/Database.php.php' (include_path='.;C:\php\pear') in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php:3
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\routes\web.php(7): require_once()
+#1 D:\WebSites\movAlmacen\API2\index.php(11): require_once('D:\\WebSites\\mov...')
+#2 {main}
+  thrown in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php on line 3
+[26-Oct-2026 14:38:47 America/Lima] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\WebSites\movAlmacen\API2\app\controllers/../core/Database.php.php' (include_path='.;C:\php\pear') in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php:3
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\routes\web.php(7): require_once()
+#1 D:\WebSites\movAlmacen\API2\index.php(11): require_once('D:\\WebSites\\mov...')
+#2 {main}
+  thrown in D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php on line 3

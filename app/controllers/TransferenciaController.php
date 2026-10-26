@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../core/Database.php.php';
+require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/ApiException.php';
 require_once __DIR__ . '/../models/TransferenciaModel.php';
 require_once __DIR__ . '/ValeController.php';
@@ -55,7 +55,6 @@ class TransferenciaController
 
         foreach ($list_articulos as $key => $datos) {
             $det_otr = $this->transfer->SavetOTRDet($conn, $datos);
-
         }
 
         $RegSalida = date('Y-m-d H:i:s', strtotime($datos['fechaReg'] . ' +0 second'));
@@ -96,13 +95,11 @@ class TransferenciaController
 
         $resultOtr = [
             'success' => true,
-            'vales' => [$valeS['nro_vale'],$valeS['nro_vale']],
+            'vales' => [$valeS['nro_vale'], $valeS['nro_vale']],
         ];
 
         Database::commit($conn);
 
         return $resultOtr;
-
-
     }
 }
