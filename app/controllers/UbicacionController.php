@@ -37,6 +37,12 @@ class UbicacionController
             throw new ApiException('nivel_required', 'Nivel es requerido', 400);
         }
 
+
+        $nivel = trim($data['nivel']);
+        if (!ctype_digit($nivel) || (int) $nivel < 1 || (int) $nivel > 5) {
+            throw new ApiException('nivel_invalid', 'Nivel debe ser un número del 1 al 5', 400);
+        }
+
         $result = $this->ubicacionModel->getUbicacionesFiltro(trim($data['filtro']), trim($data['nivel']));
 
         header('Cache-Control: no-store');

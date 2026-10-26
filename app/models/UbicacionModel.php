@@ -85,13 +85,14 @@ class UbicacionModel
                         WHERE DEP.COD_RACK NOT IN (SELECT T.COD_RACK FROM FILTRO T) 
                         AND TRIM(DEP.COD_RACK) LIKE TRIM(UP.COD_RACK) || '%') AS DISP_UBIC
                     FROM UBIC_PALLET UP
-                    WHERE UP.NIV_RACK = $nivel
+                    WHERE UP.NIV_RACK = :nivel
                     and up.estado=1
                      AND  REGEXP_LIKE(UP.COD_RACK, '^(' || REPLACE(:filtro, ',', '|') || ')')
                      order by UP.COD_RACK asc ";
 
         $stmt = Database::prepare($db, $sql);
         Database::bind($stmt, ':filtro', $filtro);
+        Database::bind($stmt, ':nivel', $nivel);
 
         Database::execute($stmt);
 
