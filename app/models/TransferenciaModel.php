@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/ApiException.php';
 
-class TransFerenciaController
+class TransferenciaModel
 {
     public function SaveOTR($conn, array $datos)
     {
