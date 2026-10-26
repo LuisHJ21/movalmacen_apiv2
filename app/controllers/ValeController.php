@@ -26,13 +26,13 @@ class ValeController
             throw new ApiException('tMov_required', 'Tipo de movimiento es requerido', 400);
         }
 
-        if (!is_array($data) || !isset($data['tipoRef']) || !is_string($data['tipoRef']) || trim($data['tipoRef']) === '') {
-            throw new ApiException('tipo_required', 'Tipo de documento es requerido', 400);
-        }
+        // if (!is_array($data) || !isset($data['tipoRef']) || !is_string($data['tipoRef']) || trim($data['tipoRef']) === '') {
+        //     throw new ApiException('tipo_required', 'Tipo de documento es requerido', 400);
+        // }
 
-        if (!is_array($data) || !isset($data['referencia']) || !is_string($data['referencia']) || trim($data['referencia']) === '') {
-            throw new ApiException('referencia_required', 'Referencia es requerida', 400);
-        }
+        // if (!is_array($data) || !isset($data['referencia']) || !is_string($data['referencia']) || trim($data['referencia']) === '') {
+        //     throw new ApiException('referencia_required', 'Referencia es requerida', 400);
+        // }
 
         if (!is_array($data) || !isset($data['fechaReg']) || !is_string($data['fechaReg']) || trim($data['fechaReg']) === '') {
             throw new ApiException('fechaReg_required', 'Fecha de registro es requerida', 400);
@@ -72,7 +72,7 @@ class ValeController
                 $articulo['referencia']['almacen'] = $data['almacen'];
             }
 
-            $det_vale = $this->valeModel->saveValeDetalle($conn, $nro_vale, $data['fechaReg'], $data['tMov'], $articulo);
+            $det_vale = $this->valeModel->saveValeDetalle($conn, $nro_vale, $data['fechaReg'], $data['tMov'], $articulo, $data['almacen']);
 
 
             // if ($data['tMov'] !== 'I04') {

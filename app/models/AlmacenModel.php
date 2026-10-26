@@ -10,7 +10,22 @@ class AlmacenModel
         $db = Database::connection();
         $data = [];
 
-        $sql = " WITH p as (
+        // $sql = " WITH p as (
+        //             select distinct t.almacen,t.desc_almacen,sum(aa.sldo_total) saldo from almacen t,articulo_almacen aa where t.almacen=aa.almacen(+)
+        //             and t.flag_tipo_almacen='T' and t.flag_estado='1'  group by t.almacen,t.desc_almacen order by t.desc_almacen)
+        //             ,
+        //             f as (
+
+        //             SELECT AU.COD_ALMACEN ,A.DESC_ALMACEN,( LISTAGG(TRIM(au.cod_ubicacion), ',') WITHIN GROUP (ORDER BY AU.COD_ALMACEN ,A.DESC_ALMACEN) ) as COD_UBICACION FROM ALMACEN_UBIC AU, ALMACEN A
+        //                         WHERE AU.COD_ALMACEN=A.ALMACEn
+        //                         GROUP BY   AU.COD_ALMACEN ,A.DESC_ALMACEN
+        //                         )
+
+        //             select p.almacen,p.desc_almacen,f.cod_ubicacion, p.saldo from p,f
+        //             where p.almacen=f.cod_almacen (+)
+        //             ";
+
+        $sql = "WITH p as (
                     select distinct t.almacen,t.desc_almacen,sum(aa.sldo_total) saldo from almacen t,articulo_almacen aa where t.almacen=aa.almacen(+)
                     and t.flag_tipo_almacen='T' and t.flag_estado='1'  group by t.almacen,t.desc_almacen order by t.desc_almacen)
                     ,
@@ -21,9 +36,8 @@ class AlmacenModel
                                 GROUP BY   AU.COD_ALMACEN ,A.DESC_ALMACEN
                                 )
 
-                    select p.almacen,p.desc_almacen,f.cod_ubicacion, p.saldo from p,f
-                    where p.almacen=f.cod_almacen (+) 
-                    ";
+                    select nvl(p.almacen,f.COD_ALMACEN) as almacen , nvl(p.desc_almacen,f.desc_almacen) as desc_almacen,f.cod_ubicacion, p.saldo from p
+                    FULL OUTER JOIN f on p.almacen=f.cod_almacen";
 
         $stmt = Database::prepare($db, $sql);
 

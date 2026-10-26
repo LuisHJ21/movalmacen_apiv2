@@ -26,6 +26,7 @@ class ValeModel
         $almacen = $datos['almacen'];
 
 
+
         $idReg = $datos['idForm'];
 
 
@@ -76,7 +77,7 @@ class ValeModel
     }
 
 
-    public function saveValeDetalle($conn, string $n_vale, string $fecha_reg, string $tipomov, array $datos)
+    public function saveValeDetalle($conn, string $n_vale, string $fecha_reg, string $tipomov, array $datos, string $almacenRef = '')
     {
 
 
@@ -95,8 +96,9 @@ class ValeModel
         $lote = $datos['lote'];
         $moneda = "S/.";
 
-        $almacen = $datos['referencia']['almacen'];
+        $almacen = $almacenRef == '' ? $datos['referencia']['almacen'] : $almacenRef;
         $nromov = $datos['referencia']['nroMov'];
+
 
 
         $out_nroMov = "";
