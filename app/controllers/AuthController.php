@@ -33,6 +33,26 @@ class AuthController
     }
 
 
+    /**
+     * Renueva el token mientras haya actividad. El usuario sale del propio token (ya verificado
+     * por el Router), nunca del cuerpo. Se revalida que siga activo y se conserva la hora del
+     * login: pasado JWT_MAX_SESSION hay que volver a iniciar sesión.
+     */
+    public function refresh(Request $request)
+    {
+        try {
+            $jwt = new JwtService();
+        } catch (JwtConfigurationException $e) {
+            throw new ApiException('auth_not_configured', 'Autenticación no configurada', 500, $e);
+        }
+
+        $claims = $jwt->verifyClaims((string) $request->getBearerToken());
+        $user = (new AuthModel())->obtenerUsuarioActivo($claims->sub);
+
+        header('Cache-Control: no-store');
+        return array_merge(['success' => true, 'data' => $user], $jwt->issue($user, $jwt->authTime($claims)));
+    }
+
     public function me(Request $request)
     {
         header('Cache-Control: no-store');

@@ -7,6 +7,7 @@ require_once __DIR__ . '/../controllers/AlmacenController.php';
 
 
 $router->post('/login', 'AuthController@login');
+$router->post('/refresh', 'AuthController@refresh');
 $router->get('/me', 'AuthController@me');
 
 
