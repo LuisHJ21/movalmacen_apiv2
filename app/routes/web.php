@@ -4,6 +4,7 @@ global $router;
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../controllers/PalletController.php';
 require_once __DIR__ . '/../controllers/AlmacenController.php';
+require_once __DIR__ . '/../controllers/TransferenciaController.php';
 
 
 $router->post('/login', 'AuthController@login');
@@ -29,3 +30,5 @@ $router->get('/references', 'ReferencesController@obtenerReferencias');
 $router->post('/vale', 'ValeController@GenerarVale');
 $router->get('/vale', 'ValeController@GetHistorial');
 $router->get('/vale/detalle', 'ValeController@GetValeDetalle');
+
+$router->post('/transferencia', 'TransferenciaController@GenerarOTR');
