@@ -43,8 +43,22 @@ class PalletController
             throw new ApiException('article_code_required', 'Código de artículo es requerido', 400);
         }
 
-        $result = $this->palletModel->getDataPallet(trim($data['pallet']), trim($data['tipoMov']), trim($data['codart']));
+        $result = $this->palletModel->DataPalletforVale(trim($data['pallet']), trim($data['tipoMov']), trim($data['codart']));
 
+        header('Cache-Control: no-store');
+        return ['success' => true, 'data' => $result];
+    }
+
+    public function ObtenerInfoPallet(Request $request)
+    {
+
+        $data = $request->getParams();
+
+        if (!is_array($data) || !isset($data['pallet']) || !is_string($data['pallet']) || trim($data['pallet']) === '') {
+            throw new ApiException('pallet_required', 'Número de pallet es requerido', 400);
+        }
+
+        $result = $this->palletModel->PalletInfo($data['pallet']);
         header('Cache-Control: no-store');
         return ['success' => true, 'data' => $result];
     }

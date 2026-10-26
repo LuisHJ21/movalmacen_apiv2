@@ -50,28 +50,9 @@ class PalletModel
         return $data;
     }
 
-    public function DataPalletforVale($pallet, $tipoMov): array
-    {
-        $conn = Database::connection();
 
-        $sql = "SELECT t.num_pallet,t.num_bulto,t.peso,t.flag_estado as estado,t2.cod_rack as ubicaccion,t2.cod_almacen as almacen
-        from pallet t,ubic_pallet_asig t2 where t.num_pallet=t2.num_pallet(+) and t.num_pallet= :pallet";
 
-        $stmt = Database::prepare($conn, $sql);
-        Database::bind($stmt, ':pallet', $pallet);
-        Database::execute($stmt);
-
-        $row = oci_fetch_assoc($stmt);
-        oci_free_statement($stmt);
-
-        if (!$row) {
-            throw new ApiException('pallet_not_found', 'El pallet no existe', 404);
-        }
-
-        return $row;
-    }
-
-    public function getDataPallet(string $numPallet, string $tipoMov, string $codart)
+    public function DataPalletforVale(string $numPallet, string $tipoMov, string $codart)
     {
         $data = [];
         $dataOt = [];
@@ -160,5 +141,85 @@ class PalletModel
         oci_free_statement($stmt);
         oci_free_cursor($cursor);
         return $data;
+    }
+
+    public function PalletInfo(string $pallet)
+    {
+        $conn = Database::connection();
+
+        $sql = "SELECT 
+            NUM_PALLET,
+            NUM_BULTO,
+            PESO,
+            COD_USUARIO,
+            TO_CHAR(FECH_REGISTRO,'DD/MM/YYYY') AS FECH_REGISTRO,
+            FLAG_ESTADO,
+            OBSERVACION
+        FROM PALLET
+        WHERE NUM_PALLET = :pallet";
+
+        $stmt = Database::prepare($conn, $sql);
+
+        Database::bind($stmt, ':pallet', $pallet);
+
+        Database::execute($stmt);
+
+        $respuesta = oci_fetch_assoc($stmt);
+
+        if (!$respuesta) {
+            throw new ApiException('pallet_not_found', 'El pallet no existe', 404);
+        }
+
+        $items = [];
+
+        $sql2 = "SELECT
+                    pd.ITEM,
+                    pd.NUM_BULTOS,
+                    pd.PESO,
+                    TO_CHAR(pd.FECH_PRODU,'DD/MM/YYYY') AS FECH_PRODU,
+                    pd.COD_TEMPLA as LOTE,
+                    pd.COD_TRAZA,
+                    TO_CHAR(pd.FECH_REGIST,'DD/MM/YYYY') AS FECH_REGIST,
+                    pd.COD_USUARIO,
+                    pd.COD_ARTICULO,
+                    a.DESC_ART AS DESCRIPCION,
+                    ppv.COD_PARTE AS COD_PARTE,
+                    pp.DESCRIPCION AS DESC_PARTE,
+                    am.NRO_VALE AS NRO_VALE,
+                    vm.TIPO_MOV AS TIPO_MOV,
+                    t.desc_tipo_mov,
+                    vm.tipo_refer AS TIPO_REFER,
+                    vm.nro_refer AS REFER,
+                    pd.PESO_ORIGINAL,
+                    pp.especie
+           
+                FROM PALLET_DET pd, ARTICULO_MOV am, VALE_MOV vm, ARTICULO a,PARTE_PRODUC_PLAN_VALE ppv,PARTE_PRODUCCION pp,
+                articulo_mov_tipo t
+                where 
+        
+                pd.nro_mov_am=am.nro_mov (+)
+                and pd.cod_origen_am=am.cod_origen (+)
+                and pd.cod_articulo=a.cod_art(+)
+                and am.nro_mov=ppv.nro_mov_am(+)
+                and am.cod_origen=ppv.cod_origen_am(+)
+                and am.nro_vale=vm.nro_vale (+)
+                and ppv.cod_parte=pp.cod_parte_producc(+)
+                and vm.tipo_mov=t.tipo_mov
+                and pd.NUM_PALLET = :pallet
+                ORDER BY pd.ITEM";
+
+        $stmt2 = Database::prepare($conn, $sql2);
+
+        Database::bind($stmt2, ':pallet', $pallet);
+
+        Database::execute($stmt2);
+
+        while ($row = oci_fetch_assoc($stmt2)) {
+            $items[] = $row;
+        }
+
+        $respuesta['DETALLES'] = $items;
+
+        return $respuesta;
     }
 }
