@@ -5,7 +5,6 @@ require_once __DIR__ . '/../core/ApiException.php';
 
 class AlmacenModel
 {
-
     public function getAlmacenes()
     {
         $db = Database::connection();

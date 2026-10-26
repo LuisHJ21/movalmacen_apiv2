@@ -4,9 +4,8 @@ require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/ApiException.php';
 
 
-class  ErrorModel
+class ErrorModel
 {
-
     public function insertError(array $data)
     {
         $conn = Database::connection();

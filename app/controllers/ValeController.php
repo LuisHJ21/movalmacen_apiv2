@@ -5,7 +5,6 @@ require_once __DIR__ . '/../models/ValeModel.php';
 
 class ValeController
 {
-
     private ValeModel $valeModel;
 
     public function __construct()
@@ -62,7 +61,7 @@ class ValeController
                 $articulo['referencia']['nro'] = $data['referencia'];
                 $articulo['referencia']['almacen'] = $data['almacen'];
             } elseif ($data['tMov'] == 'I04') {
-                $articulo['lote'] = isset($articulo['lote']) ? $articulo['lote'] : $articulo['loteDest'];
+                $articulo['lote'] ??= $articulo['loteDest'];
                 $articulo['referencia']['tipo'] = $data['tipoRef'];
                 $articulo['referencia']['nro'] = $data['referencia'];
                 $articulo['referencia']['almacen'] = $data['almacen'];
@@ -111,7 +110,7 @@ class ValeController
         return [
             'success' => true,
             'message' => 'Vale generado correctamente',
-            'nro_vale' => $nro_vale
+            'nro_vale' => $nro_vale,
         ];
     }
 

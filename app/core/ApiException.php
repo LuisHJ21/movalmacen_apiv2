@@ -9,7 +9,7 @@ class ApiException extends RuntimeException
         string $errorCode,
         string $message,
         int $statusCode = 400,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         if ($errorCode === '') {
             throw new InvalidArgumentException('El código del error es requerido');

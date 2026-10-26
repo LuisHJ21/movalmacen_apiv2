@@ -4,7 +4,6 @@ require_once __DIR__ . '/../core/Database.php';
 
 class UbicacionModel
 {
-
     public function getUbicaciones(string $filtro)
     {
         $db = Database::connection();

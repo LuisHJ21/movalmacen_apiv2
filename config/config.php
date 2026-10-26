@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 const BD_USE = "prueba";
 const DB_DATA = [
     'prueba' => ["rf_prueba7", "rf_prueba7", "ORCL_FISHOLG"],
-    'produccion' => ["ref_fisholg", "ref_fisholg", "ORCL_FISHOLG_WEB"]
+    'produccion' => ["ref_fisholg", "ref_fisholg", "ORCL_FISHOLG_WEB"],
 ];
 
 const APP_URL = '/movalmacen/api2';

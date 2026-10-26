@@ -5,7 +5,6 @@ require_once __DIR__ . '/../core/ApiException.php';
 
 class ValeModel
 {
-
     public function saveVale($conn, array $datos)
     {
 
@@ -63,11 +62,11 @@ class ValeModel
             throw new ApiException('vale_save_error', oci_error($stmt)['message'], 400);
         } else {
 
-            $respuesta =
+            $respuesta
 
-                [
+                = [
                     'success' => true,
-                    'nro_vale' => $nro_vale
+                    'nro_vale' => $nro_vale,
                 ];
         }
 
@@ -138,14 +137,14 @@ class ValeModel
             throw new ApiException('vale_det_error', oci_error($stmt)['message'], 400);
         } else {
 
-            $respuesta =
+            $respuesta
 
-                [
+                = [
                     'success' => true,
                     'message' => [
                         'nromov' => $out_nroMov,
-                        'orgmov' => $out_orgMov
-                    ]
+                        'orgmov' => $out_orgMov,
+                    ],
                 ];
         }
 

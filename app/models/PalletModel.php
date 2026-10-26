@@ -86,8 +86,8 @@ class PalletModel
                 $dividendo = floatval($datos['PESO']);
                 $divisor = $datos['PESO_UND'] !== "" ? floatval($datos['PESO_UND']) : 1;
 
-                $adicional =
-                    (round($dividendo * $factor) % round($divisor * $factor)) / $factor;
+                $adicional
+                    = (round($dividendo * $factor) % round($divisor * $factor)) / $factor;
 
                 $bultos = $datos['NUM_BULTOS'] === "" ? intdiv(floatval($datos['PESO']), $divisor) : $datos['NUM_BULTOS'];
 

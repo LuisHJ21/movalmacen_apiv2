@@ -5,9 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class JwtConfigurationException extends RuntimeException
-{
-}
+class JwtConfigurationException extends RuntimeException {}
 
 class JwtService
 {
@@ -37,7 +35,7 @@ class JwtService
     public function issue(array $user, ?int $authTime = null): array
     {
         $now = time();
-        $authTime = $authTime ?? $now;
+        $authTime ??= $now;
         $exp = min($now + $this->ttl, $authTime + $this->maxSession);
         $identity = array_intersect_key($user, array_flip(['COD_USR', 'NOMBRE', 'PERFIL']));
         $payload = [

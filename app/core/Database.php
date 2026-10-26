@@ -19,7 +19,7 @@ class Database
                 DB_DATA[BD_USE][0],
                 DB_DATA[BD_USE][1],
                 DB_DATA[BD_USE][2],
-                'UTF8'
+                'UTF8',
             );
             if (self::$connection === false) {
                 self::$connection = null;

@@ -15,7 +15,7 @@ function conectarDB()
         die(json_encode([
             'result' => 'error',
             'message' => 'Error de conexión a Oracle',
-            'error' => $e['message']
+            'error' => $e['message'],
         ]));
     }
 

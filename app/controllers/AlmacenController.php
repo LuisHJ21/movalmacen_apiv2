@@ -6,7 +6,7 @@ class AlmacenController
     private AlmacenModel $almacenModel;
 
 
-    public  function __construct()
+    public function __construct()
     {
         $this->almacenModel = new AlmacenModel();
     }

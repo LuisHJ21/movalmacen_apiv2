@@ -5,7 +5,6 @@ require_once __DIR__ . '/../core/ApiException.php';
 
 class AuthModel
 {
-    /** Datos actuales del usuario para renovar su token; 401 si ya no existe o fue desactivado */
     public function obtenerUsuarioActivo(string $usuario): array
     {
         $nick = trim(strtolower($usuario));
@@ -67,7 +66,6 @@ class AuthModel
         $claveDecrypted = $this->desencriptar($key, $row['CLAVE']);
 
 
-        //var_dump($claveDecrypted);
 
         if ($clave <> $claveDecrypted) {
             throw new ApiException('pass_incorrect', 'La contraseña es incorrecta', 401);
