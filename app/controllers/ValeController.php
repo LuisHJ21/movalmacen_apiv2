@@ -114,4 +114,40 @@ class ValeController
             'nro_vale' => $nro_vale
         ];
     }
+
+    public function GetHistorial(Request $request)
+    {
+        $data = $request->getParams();
+
+        if (!is_array($data) || !isset($data['usuario']) || !is_string($data['usuario']) || trim($data['usuario']) === '') {
+            throw new ApiException('usuario_required', 'Usuario es requerido', 400);
+        }
+
+        if (!is_array($data) || !isset($data['fechIni']) || !is_string($data['fechIni']) || trim($data['fechIni']) === '') {
+            throw new ApiException('fechIni_required', 'Fecha de inicio es requerida', 400);
+        }
+
+        if (!is_array($data) || !isset($data['fechFin']) || !is_string($data['fechFin']) || trim($data['fechFin']) === '') {
+            throw new ApiException('fechFin_required', 'Fecha de fin es requerida', 400);
+        }
+
+        $result = $this->valeModel->getHistory($data);
+
+        header('Cache-Control: no-store');
+        return ['success' => true, 'data' => $result];
+    }
+
+    public function GetValeDetalle(Request $request)
+    {
+        $data = $request->getParams();
+
+        if (!is_array($data) || !isset($data['vale']) || !is_string($data['vale']) || trim($data['vale']) === '') {
+            throw new ApiException('vale_required', 'Vale es requerido', 400);
+        }
+
+        $result = $this->valeModel->getValeDetail($data);
+
+        header('Cache-Control: no-store');
+        return ['success' => true, 'data' => $result];
+    }
 }

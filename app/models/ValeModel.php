@@ -154,4 +154,83 @@ class ValeModel
 
         return $respuesta;
     }
+
+    public function getHistory($datos)
+    {
+        $db = Database::connection();
+
+        $usuario = $datos['usuario'];
+        $desde = $datos['fechIni'];
+        $hasta = $datos['fechFin'];
+
+        $data = [];
+
+        $sql = "SELECT v.nro_vale,v.flag_estado,to_char(v.fec_registro,'dd/mm/yyyy HH24:mi:ss') fecha,amt.desc_tipo_mov,v.cod_usr,v.tipo_refer,v.nro_refer,v.fec_ingreso,v.almacen 
+        from vale_mov v,ARTICULO_MOV_TIPO amt
+        where v.tipo_mov=amt.tipo_mov 
+        and v.cod_usr = '$usuario' and to_char(v.fec_ingreso,'yyyy-mm-dd')>='$desde' and to_char(v.fec_ingreso,'yyyy-mm-dd')<='$hasta' 
+        order by v.nro_vale DESC";
+
+        $stmt = Database::prepare($db, $sql);
+        $data = [];
+        Database::execute($stmt);
+
+        while ($row = oci_fetch_assoc($stmt)) {
+            $data[] = $row;
+        }
+
+
+        if (empty($data)) {
+            throw new ApiException('vale_history_error', 'No se encontraron registros para el usuario y rango de fechas proporcionados.', 404);
+        }
+
+
+        oci_free_statement($stmt);
+        // oci_close($db);
+
+        return $data;
+    }
+
+    public function getValeDetail(array $datos)
+    {
+        $db = Database::connection();
+        $vale = $datos['vale'];
+        $data = [];
+
+        $sql = "SELECT am.cod_origen, (select doc_mov_almacen from logparam where reckey = '1') as tipo_doc,
+        am.nro_vale,am.nro_mov, am.cod_art, a.desc_art, a.und, usf_alm_cant_proc_am(am.cod_origen, am.nro_mov) as cant_procesada, usf_alm_cant_proc_und2_am(am.cod_origen, am.nro_mov) as cant_proc_und2, am.precio_unit, am.origen_mov_proy, am.nro_mov_proy, am.oper_sec, am.cencos, am.cnta_prsp, decode(a.flag_und2,'0',null, a.flag_und2) as flag_und2, am.matriz, NVL(am.flag_saldo_libre, '0') as flag_saldo_libre, am.centro_benef, am.nro_reservacion, am.item_reservacion,vm.observaciones
+
+        from articulo_mov am, articulo a,vale_mov vm
+        where a.cod_art = am.cod_art
+        and am.nro_vale=vm.nro_vale
+        --and am.flag_Estado <> '0'
+        and am.nro_Vale = :vale
+        and (usf_alm_cant_proc_am(am.cod_origen, am.nro_mov) > 0 or
+        usf_alm_cant_proc_und2_am(am.cod_origen, am.nro_mov) > 0 )";
+
+
+
+        $stmt = Database::prepare($db, $sql);
+
+        Database::bind($stmt, ':vale', $vale);
+
+        Database::execute($stmt);
+
+        while ($row = oci_fetch_assoc($stmt)) {
+
+
+            $data[] = $row;
+        }
+
+
+        if (empty($data)) {
+            throw new ApiException('vale_detail_not_found', 'Detalle no encontrado', 404);
+        }
+
+
+        oci_free_statement($stmt);
+
+
+        return $data;
+    }
 }

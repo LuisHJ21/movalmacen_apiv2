@@ -25,3 +25,5 @@ $router->get('/references', 'ReferencesController@obtenerReferencias');
 
 
 $router->post('/vale', 'ValeController@GenerarVale');
+$router->get('/vale', 'ValeController@GetHistorial');
+$router->get('/vale/detalle', 'ValeController@GetValeDetalle');
