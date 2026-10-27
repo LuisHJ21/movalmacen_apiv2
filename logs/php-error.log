@@ -140,3 +140,14 @@ Stack trace:
 #2 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->VerificarPallet(Object(Request))
 #3 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
 #4 {main}
+[26-Oct-2026 22:58:18 America/Lima] Unhandled API exception: TypeError: PalletModel::UpdateVinculoPallet(): Argument #1 ($conn) must be of type string, resource given, called in D:\WebSites\movAlmacen\API2\app\controllers\ValeController.php on line 89 and defined in D:\WebSites\movAlmacen\API2\app\models\PalletModel.php:314
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\controllers\ValeController.php(89): PalletModel->UpdateVinculoPallet(Resource id #5, 'PA00025781', '1', '307179    ', 'PA', 'S', '')
+#1 D:\WebSites\movAlmacen\API2\app\controllers\ValeController.php(53): ValeController->registrarVale(Resource id #5, Array)
+#2 D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php(82): ValeController->GenerarVale(Array, Resource id #5)
+#3 D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php(52): TransferenciaController->registrarTransferencia(Resource id #5, Array)
+#4 D:\WebSites\movAlmacen\API2\app\core\Database.php(96): TransferenciaController->{closure}(Resource id #5)
+#5 D:\WebSites\movAlmacen\API2\app\controllers\TransferenciaController.php(52): Database::transaction(Object(Closure))
+#6 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): TransferenciaController->GenerarOTR(Object(Request))
+#7 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#8 {main}

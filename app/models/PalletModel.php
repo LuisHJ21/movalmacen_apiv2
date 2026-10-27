@@ -312,7 +312,7 @@ class PalletModel
 
 
     public function UpdateVinculoPallet(
-        string $conn,
+        $conn,
         string $pallet,
         string $item,
         string $nromov,
