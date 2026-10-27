@@ -24,6 +24,7 @@ $router->get('/almacen/matriz', 'AlmacenController@obtenerMatriz');
 
 $router->get('/ubicacion', 'UbicacionController@obtenerUbicaciones');
 $router->get('/ubicacion/filtro', 'UbicacionController@obtenerUbicacionesFiltro');
+$router->post('/ubicacion', 'UbicacionController@guardarUbicacion');
 
 $router->get('/references', 'ReferencesController@obtenerReferencias');
 
