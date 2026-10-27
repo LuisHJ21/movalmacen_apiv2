@@ -65,10 +65,14 @@ class AlmacenModel
 
         $conn = Database::connection();
 
-        $sql = "SELECT distinct a.tipo_mov as cod_mov,substr(a.tipo_mov,1,1) as tipo_mov,  a.desc_tipo_mov as nom_mov,a.Flag_Clase_Mov as clase_mov,a.flag_contabiliza as f_contabiliza,a.flag_solicita_ref as f_ref
+        $sql = "SELECT distinct a.tipo_mov as cod_mov,substr(a.tipo_mov,1,1) as tipo_mov,  
+a.desc_tipo_mov as nom_mov,a.Flag_Clase_Mov as clase_mov,a.flag_contabiliza as f_contabiliza,
+a.flag_solicita_ref as f_ref, c.flag_estado as f_solcita_plan
             FROM  articulo_mov_tipo a,
-                almacen_tipo_mov  b
+                almacen_tipo_mov  b,
+                TIPO_MOV_PLAN_DIARIO c
             WHERE a.tipo_mov    = b.tipo_mov
+                  and b.tipo_mov=c.tipo_mov(+)
                 and a.flag_estado   = '1'
             and a.tipo_mov    like :tipomov ";
 
