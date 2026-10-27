@@ -65,11 +65,11 @@ class UbicacionController
             throw new ApiException('pallet_required', 'Número de pallet es requerido', 400);
         }
 
-        if (!is_array($data) || !isset($data['valeI']) || !is_string($data['valeI']) || trim($data['valeI']) === '') {
+        if (!$request instanceof Request && (!is_array($data) || !isset($data['valeI']) || !is_string($data['valeI']) || trim($data['valeI']) === '')) {
             throw new ApiException('vale_i_required', 'Vale de entrada es requerido', 400);
         }
 
-        if (!is_array($data) || !isset($data['valeS']) || !is_string($data['valeS']) || trim($data['valeS']) === '') {
+        if (!$request instanceof Request && (!is_array($data) || !isset($data['valeS']) || !is_string($data['valeS']) || trim($data['valeS']) === '')) {
             throw new ApiException('vale_s_required', 'Vale de salida es requerido', 400);
         }
 
