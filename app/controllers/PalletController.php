@@ -62,4 +62,22 @@ class PalletController
         header('Cache-Control: no-store');
         return ['success' => true, 'data' => $result];
     }
+
+    public function ObtenerDatosTransferPallet(Request $request)
+    {
+        $data = $request->getParams();
+        if (!is_array($data) || !isset($data['pallet']) || !is_string($data['pallet']) || trim($data['pallet']) === '') {
+            throw new ApiException('pallet_required', 'Número de pallet es requerido', 400);
+        }
+        if (!is_array($data) || !isset($data['almacen']) || !is_string($data['almacen']) || trim($data['almacen']) === '') {
+            throw new ApiException('almacen_required', 'Almacen es requerido', 400);
+        }
+        if (!is_array($data) || !isset($data['tipo']) || !is_string($data['tipo']) || trim($data['tipo']) === '') {
+            throw new ApiException('tipo_required', 'tipo de solicitud requerido', 400);
+        }
+
+        $result = $this->palletModel->DataPalletForTransfer($data);
+        header('Cache-Control: no-store');
+        return ['success' => true, 'data' => $result];
+    }
 }

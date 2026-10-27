@@ -4,6 +4,7 @@ require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/ApiException.php';
 require_once __DIR__ . '/../models/TransferenciaModel.php';
 require_once __DIR__ . '/ValeController.php';
+require_once __DIR__ . '/UbicacionController.php';
 
 
 class TransferenciaController
@@ -11,10 +12,13 @@ class TransferenciaController
     private TransferenciaModel $transfer;
     private ValeController $vale;
 
+    private UbicacionController $ubicacion;
+
     public function __construct()
     {
         $this->transfer = new TransferenciaModel();
         $this->vale = new ValeController();
+        $this->ubicacion = new UbicacionController();
     }
 
     public function GenerarOTR(Request $request)
@@ -37,10 +41,10 @@ class TransferenciaController
         if (!is_array($data) || !isset($data['almDestino']) || trim($data['almDestino']) === '') {
             throw new ApiException('alm_dest_required', 'Almacen Destino es requerido', 400);
         }
-        if (!is_array($data) || !isset($data['idFormS']) || trim($data['idForm']) === '') {
+        if (!is_array($data) || !isset($data['idFormS']) || trim($data['idFormS']) === '') {
             throw new ApiException('idformS_required', 'Form1 es requerido', 400);
         }
-        if (!is_array($data) || !isset($data['idFormI']) || trim($data['idForm']) === '') {
+        if (!is_array($data) || !isset($data['idFormI']) || trim($data['idFormI']) === '') {
             throw new ApiException('idformI_required', 'Form2 es requerido', 400);
         }
         if (!is_array($data) || !isset($data['detalles']) || !is_array($data['detalles'])) {
@@ -54,21 +58,21 @@ class TransferenciaController
         $list_articulos = $data['detalles'] ?? [];
 
         foreach ($list_articulos as $key => $datos) {
-            $det_otr = $this->transfer->SavetOTRDet($conn, $datos);
+            $det_otr = $this->transfer->SavetOTRDet($conn, $datos, $data['almOrigen'], $data['almDestino'], $num_otr, $data['usuario']);
         }
 
-        $RegSalida = date('Y-m-d H:i:s', strtotime($datos['fechaReg'] . ' +0 second'));
+        $RegSalida = date('Y-m-d H:i:s', strtotime($data['fechaReg'] . ' +0 second'));
         $dataVSalida = [
             'tMov' => 'S04',
-            'tipo' => 'OTR',
+            'tipoRef' => 'OTR',
             'referencia' => $num_otr,
             'fechaReg' => $RegSalida,
-            'almacen' => $datos['almOrigen'],
-            'observaciones' => $datos['observaciones'],
-            'idForm' => $datos['idFormS'],
-            'usuario' => $datos['usuario'],
+            'almacen' => $data['almOrigen'],
+            'observaciones' => $data['observaciones'],
+            'idForm' => $data['idFormS'],
+            'usuario' => $data['usuario'],
             'detalles' => $list_articulos,
-            'pallet' => $datos['pallet'] ?? null,
+            'pallet' => $data['pallet'] ?? null,
             'otr' => $num_otr,
         ];
 
@@ -76,18 +80,18 @@ class TransferenciaController
 
 
 
-        $RegIngreso = date('Y-m-d H:i:s', strtotime($datos['fechaReg'] . ' +1 second'));
+        $RegIngreso = date('Y-m-d H:i:s', strtotime($data['fechaReg'] . ' +1 second'));
         $dataVIngreso = [
             'tMov' => 'I04',
-            'tipo' => 'OTR',
+            'tipoRef' => 'OTR',
             'referencia' => $num_otr,
             'fechaReg' => $RegIngreso,
-            'almacen' => $datos['almDestino'],
-            'observaciones' => $datos['observaciones'],
-            'idForm' => $datos['idFormI'],
-            'usuario' => $datos['usuario'],
+            'almacen' => $data['almDestino'],
+            'observaciones' => $data['observaciones'],
+            'idForm' => $data['idFormI'],
+            'usuario' => $data['usuario'],
             'detalles' => $list_articulos,
-            'pallet' => $datos['pallet'] ?? null,
+            'pallet' => $data['pallet'] ?? null,
             'otr' => $num_otr,
         ];
 
@@ -95,8 +99,19 @@ class TransferenciaController
 
         $resultOtr = [
             'success' => true,
-            'vales' => [$valeS['nro_vale'], $valeS['nro_vale']],
+            'vales' => [$valeS['nro_vale'], $valeI['nro_vale']],
         ];
+
+        $dataUbic = [
+            'codUbicacion' => $data['ubicacion'],
+            'pallet' => $data['pallet'],
+            'valeI' => $valeI['nro_vale'],
+            'valeS' => $valeS['nro_vale'],
+            'usuario' => $data['usuario'],
+            'almacenDest' => $data['almDestino']
+        ];
+
+        $this->ubicacion->guardarUbicacion($dataUbic);
 
         Database::commit($conn);
 

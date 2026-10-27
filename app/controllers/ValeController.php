@@ -1,23 +1,29 @@
 <?php
 
 require_once __DIR__ . '/../models/ValeModel.php';
+require_once __DIR__ . '/../models/PalletModel.php';
+require_once __DIR__ . '/../models/TransferenciaModel.php';
 
 
 class ValeController
 {
     private ValeModel $valeModel;
+    private PalletModel $palletModel;
 
+    private TransferenciaModel $transferenciaModel;
     public function __construct()
     {
         $this->valeModel = new ValeModel();
+        $this->palletModel = new PalletModel();
+        $this->transferenciaModel = new TransferenciaModel();
     }
 
     public function GenerarVale(Request|array $request, $conn = null)
     {
 
         $data = $request instanceof Request
-        ? $request->getBody()
-        : $request;
+            ? $request->getBody()
+            : $request;
 
 
         $conExterna = $conn !== null;
@@ -75,36 +81,23 @@ class ValeController
             $det_vale = $this->valeModel->saveValeDetalle($conn, $nro_vale, $data['fechaReg'], $data['tMov'], $articulo, $data['almacen']);
 
 
-            // if ($data['tMov'] !== 'I04') {
-            //     $vincular = $this->pallet->updateMovPallet(
-            //         $conn,
-            //         $articulo['numPallet'] ?? '',
-            //         $articulo['item'],
-            //         $det_vale['message']['nromov'],
-            //         $det_vale['message']['orgmov'],
-            //         substr($data['tMov'], 0, 1),
-            //         $codParte
-            //     );
-            //     if ($vincular['result'] == 'error') {
-            //         throw new Exception($vincular['message']);
-            //     }
-            // }
+            if ($data['tMov'] !== 'I04') {
+                $this->palletModel->UpdateVinculoPallet(
+                    $conn,
+                    $articulo['numPallet'] ?? '',
+                    $articulo['item'],
+                    $det_vale['message']['nromov'],
+                    $det_vale['message']['orgmov'],
+                    substr($data['tMov'], 0, 1),
+                    $codParte
+                );
+            }
 
-            // if (isset($data['pallet']) && trim($data['pallet']) != "" && $data['tMov'] === 'S04') {
-            //     $otrPallet = $this->tranfer->saveOtrPallet($conn, $data['otr'], $data['pallet'], $articulo['item'], $data['usuario'], $articulo['peso'], $det_vale['message']['orgmov'], $det_vale['message']['nromov'], 'O');
-            //     if ($otrPallet['result'] == 'error') {
-            //         throw new Exception($otrPallet['message']);
-            //         break;
-            //     }
-            // } elseif (isset($datos['pallet']) && trim($datos['pallet']) != "" && $datos['tMov'] === 'I04') {
-            //     $otrPallet = $this->tranfer->saveOtrPallet($conexion, $datos['otr'], $datos['pallet'], $articulo['item'], $datos['usuario'], $articulo['peso'], $det_vale['message']['orgmov'], $det_vale['message']['nromov'], 'D');
-
-            //     if ($otrPallet['result'] == 'error') {
-
-            //         throw new Exception($otrPallet['message']);
-            //         break;
-            //     }
-            // }
+            if (isset($data['pallet']) && trim($data['pallet']) != "" && $data['tMov'] === 'S04') {
+                $this->transferenciaModel->SaveOTRPallet($conn, $data['otr'], $data['pallet'], $articulo['item'], $data['usuario'], $articulo['peso'], $det_vale['message']['orgmov'], $det_vale['message']['nromov'], 'O');
+            } elseif (isset($data['pallet']) && trim($data['pallet']) != "" && $data['tMov'] === 'I04') {
+                $this->transferenciaModel->SaveOTRPallet($conn, $data['otr'], $data['pallet'], $articulo['item'], $data['usuario'], $articulo['peso'], $det_vale['message']['orgmov'], $det_vale['message']['nromov'], 'D');
+            }
         }
 
         if (!$conExterna) {

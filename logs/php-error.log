@@ -42,3 +42,101 @@ Stack trace:
 #2 D:\WEBSITES\movAlmacen\API2\app\core\Router.php(98): ValeController->GenerarVale()
 #3 D:\WEBSITES\movAlmacen\API2\index.php(13): Router->resolve()
 #4 {main}
+[26-Oct-2026 20:31:19 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00003721', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00003721')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:31:20 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00003721', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00003721')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:31:20 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00011229', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00011229')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:31:20 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00011229', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00011229')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:31:20 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00028528', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00028528')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:31:20 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA99999999', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA99999999')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:33:05 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00011229', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00011229')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:51:02 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00011229', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00011229')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:51:02 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00011229', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00011229')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:51:02 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00003721', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00003721')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 20:51:02 America/Lima] Unhandled API exception: TypeError: oci_bind_by_name(): Argument #1 ($statement) must be of type resource, string given in D:\WebSites\movAlmacen\API2\app\core\Database.php:43
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\core\Database.php(43): oci_bind_by_name(' SELECT * from ...', ':numPallet', 'PA00000001', -1, 1)
+#1 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(235): Database::bind(' SELECT * from ...', ':numPallet', 'PA00000001')
+#2 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(79): PalletModel->DataPalletForTransfer(Array)
+#3 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->ObtenerDatosTransferPallet(Object(Request))
+#4 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[26-Oct-2026 21:13:05 America/Lima] Oracle: ORA-03113: end-of-file on communication channel
+Process ID: 2707345
+Session ID: 5170 Serial number: 53867
+[26-Oct-2026 21:13:05 America/Lima] Unhandled API exception: RuntimeException: Error de base de datos in D:\WebSites\movAlmacen\API2\app\core\Database.php:70
+Stack trace:
+#0 D:\WebSites\movAlmacen\API2\app\models\PalletModel.php(17): Database::execute(Resource id #2)
+#1 D:\WebSites\movAlmacen\API2\app\controllers\PalletController.php(24): PalletModel->VerifyStatePallet('PA00028528')
+#2 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): PalletController->VerificarPallet(Object(Request))
+#3 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
+#4 {main}

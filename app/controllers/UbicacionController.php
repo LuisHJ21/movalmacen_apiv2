@@ -49,16 +49,19 @@ class UbicacionController
         return ['success' => true, 'data' => $result];
     }
 
-    public function guardarUbicacion(Request $request)
+    public function guardarUbicacion(Request|array $request)
     {
-        $data = $request->getBody();
 
-        if (!is_array($data) || !isset($data['codRack']) || !is_string($data['codRack']) || trim($data['codRack']) === '') {
-            throw new ApiException('cod_rack_required', 'Código de rack es requerido', 400);
-        }
+        $data = $request instanceof Request
+            ? $request->getBody()
+            : $request;
 
-        if (!is_array($data) || !isset($data['numPallet']) || !is_string($data['numPallet']) || trim($data['numPallet']) === '') {
-            throw new ApiException('num_pallet_required', 'Número de pallet es requerido', 400);
+        // if (!is_array($data) || !isset($data['codUbicacion']) || !is_string($data['codUbicacion']) || trim($data['codUbicacion']) === '') {
+        //     throw new ApiException('cod_rack_required', 'Código de rack es requerido', 400);
+        // }
+
+        if (!is_array($data) || !isset($data['pallet']) || !is_string($data['pallet']) || trim($data['pallet']) === '') {
+            throw new ApiException('pallet_required', 'Número de pallet es requerido', 400);
         }
 
         if (!is_array($data) || !isset($data['valeI']) || !is_string($data['valeI']) || trim($data['valeI']) === '') {
@@ -73,7 +76,7 @@ class UbicacionController
             throw new ApiException('usuario_required', 'Usuario es requerido', 400);
         }
 
-        $result = $this->ubicacionModel->saveUbicacion(trim($data['codRack']), trim($data['pallet']), trim($data['valeI']), trim($data['valeS']), trim($data['usuario']), trim($data['almacenDest']));
+        $result = $this->ubicacionModel->saveUbicacion(trim($data['codUbicacion']), trim($data['pallet']), trim($data['valeI']), trim($data['valeS']), trim($data['usuario']), trim($data['almacenDest']));
 
         if (!$result) {
             throw new ApiException('failed_save_ubi', 'Error al guardar la ubicación desconocido', 400);

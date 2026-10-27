@@ -14,6 +14,7 @@ $router->get('/me', 'AuthController@me');
 
 $router->get('/pallet/verify', 'PalletController@VerificarPallet');
 $router->get('/pallet/data', 'PalletController@ObtenerDatosPallet');
+$router->get('/pallet/datatransfer', 'PalletController@ObtenerDatosTransferPallet');
 $router->get('/pallet/info', 'PalletController@ObtenerInfoPallet');
 
 $router->get('/almacen', 'AlmacenController@obtenerAlmacenes');
