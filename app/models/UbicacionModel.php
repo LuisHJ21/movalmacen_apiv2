@@ -112,46 +112,35 @@ class UbicacionModel
         return $data;
     }
 
-    public function saveUbicacion(string $codigo, string $pallet, string $valeI, string $valeS, string $usuario, string $almacenDest)
+    /**
+     * $codigo vacío desvincula el pallet de su rack (destino sin ubicaciones).
+     * Con $conn participa en una transacción externa y no hace commit; sin ella abre y confirma la suya.
+     */
+    public function saveUbicacion(string $codigo, string $pallet, string $valeI, string $valeS, string $usuario, string $almacenDest, $conn = null)
     {
-        $db = Database::connection();
-        $multi = 0;
-        $respuesta = false;
+        $guardar = function ($db) use ($codigo, $pallet, $valeI, $valeS, $usuario, $almacenDest) {
+            $multi = 0;
 
-        $sql = "begin USP_INSERTA_PALLET_ASIGNA(:rack,:almd,:pallet,:valeIng,:valeSal,:multi,:usuario); end;";
+            $sql = "begin USP_INSERTA_PALLET_ASIGNA(:rack,:almd,:pallet,:valeIng,:valeSal,:multi,:usuario); end;";
 
-        $stmt = Database::prepare($db, $sql);
+            $stmt = Database::prepare($db, $sql);
 
-        Database::bind($stmt, ':rack', $codigo);
-        Database::bind($stmt, ':almd', $almacenDest);
-        Database::bind($stmt, ':pallet', $pallet);
-        Database::bind($stmt, ':valeIng', $valeI);
-        Database::bind($stmt, ':valeSal', $valeS);
-        Database::bind($stmt, ':multi', $multi);
-        Database::bind($stmt, ':usuario', $usuario);
+            Database::bind($stmt, ':rack', $codigo);
+            Database::bind($stmt, ':almd', $almacenDest);
+            Database::bind($stmt, ':pallet', $pallet);
+            Database::bind($stmt, ':valeIng', $valeI);
+            Database::bind($stmt, ':valeSal', $valeS);
+            Database::bind($stmt, ':multi', $multi);
+            Database::bind($stmt, ':usuario', $usuario);
 
+            // Lanza excepción si falla: la transacción se revierte
+            Database::execute($stmt);
 
+            oci_free_statement($stmt);
 
-        if (!$stmt) {
-            throw new ApiException('failed_save_ubi', oci_error($db)['message'], 400);
-        }
+            return true;
+        };
 
-
-        $executeResult = Database::execute($stmt);
-
-
-        if ($executeResult == false) {
-            Database::close();
-
-            throw new ApiException('failed_save_ubi', oci_error($stmt)['message'], 400);
-        } else {
-            Database::commit($db);
-            $respuesta = true;
-        }
-
-        oci_free_statement($stmt);
-
-
-        return $respuesta;
+        return $conn !== null ? $guardar($conn) : Database::transaction($guardar);
     }
 }

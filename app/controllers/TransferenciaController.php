@@ -26,9 +26,6 @@ class TransferenciaController
 
         $data = $request->getBody();
 
-
-        $conn = Database::connection();
-
         if (!is_array($data) || !isset($data['usuario']) || trim($data['usuario']) === '') {
             throw new ApiException('user_required', 'Usuario es requerido', 400);
         }
@@ -51,6 +48,12 @@ class TransferenciaController
             throw new ApiException('detalles_required', 'Detalles son requeridos', 400);
         }
 
+        // OTR, sus detalles, ambos vales y la ubicación se confirman juntos: si algo falla se revierte todo
+        return Database::transaction(fn($conn) => $this->registrarTransferencia($conn, $data));
+    }
+
+    private function registrarTransferencia($conn, array $data): array
+    {
         $result = $this->transfer->SaveOTR($conn, $data);
 
         $num_otr = $result['otr'];
@@ -103,7 +106,8 @@ class TransferenciaController
         ];
 
         $dataUbic = [
-            'codUbicacion' => $data['ubicacion'],
+            // '' = el destino no maneja ubicaciones: el procedimiento desvincula el rack
+            'codUbicacion' => $data['ubicacion'] ?? '',
             'pallet' => $data['pallet'],
             'valeI' => $valeI['nro_vale'],
             'valeS' => $valeS['nro_vale'],
@@ -111,9 +115,7 @@ class TransferenciaController
             'almacenDest' => $data['almDestino']
         ];
 
-        $this->ubicacion->guardarUbicacion($dataUbic);
-
-        Database::commit($conn);
+        $this->ubicacion->guardarUbicacion($dataUbic, $conn);
 
         return $resultOtr;
     }

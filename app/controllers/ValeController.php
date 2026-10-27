@@ -48,12 +48,16 @@ class ValeController
             throw new ApiException('usuario_required', 'Usuario es requerido', 400);
         }
 
-        if (!$conExterna) {
-            $conn = Database::connection();
+        // Con conexión externa (ej. transferencia) confirma quien llama; si no, el vale y su detalle van en su propia transacción
+        if ($conExterna) {
+            return $this->registrarVale($conn, $data);
         }
 
+        return Database::transaction(fn($conn) => $this->registrarVale($conn, $data));
+    }
 
-
+    private function registrarVale($conn, array $data): array
+    {
         $result = $this->valeModel->saveVale($conn, $data);
 
         $list_articulos = $data['detalles'] ?? [];
@@ -98,10 +102,6 @@ class ValeController
             } elseif (isset($data['pallet']) && trim($data['pallet']) != "" && $data['tMov'] === 'I04') {
                 $this->transferenciaModel->SaveOTRPallet($conn, $data['otr'], $data['pallet'], $articulo['item'], $data['usuario'], $articulo['peso'], $det_vale['message']['orgmov'], $det_vale['message']['nromov'], 'D');
             }
-        }
-
-        if (!$conExterna) {
-            Database::commit($conn);
         }
 
         header('Cache-Control: no-store');

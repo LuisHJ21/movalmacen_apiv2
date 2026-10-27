@@ -79,6 +79,29 @@ class Database
         }
     }
 
+    public static function rollback($connection): void
+    {
+        @oci_rollback($connection);
+    }
+
+    /**
+     * Ejecuta $fn($conn) en una sola transacción: commit si termina bien,
+     * rollback de todo lo pendiente si lanza cualquier error (y lo relanza).
+     * Lo que se ejecute dentro no debe hacer commit propio.
+     */
+    public static function transaction(callable $fn)
+    {
+        $conn = self::connection();
+        try {
+            $result = $fn($conn);
+            self::commit($conn);
+            return $result;
+        } catch (Throwable $e) {
+            self::rollback($conn);
+            throw $e;
+        }
+    }
+
     public static function error($resource = null): string
     {
         $error = $resource === null ? oci_error() : oci_error($resource);

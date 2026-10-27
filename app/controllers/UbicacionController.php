@@ -49,7 +49,8 @@ class UbicacionController
         return ['success' => true, 'data' => $result];
     }
 
-    public function guardarUbicacion(Request|array $request)
+    /** Con $conn (transacción externa, ej. transferencia) no hace commit: lo confirma quien llama */
+    public function guardarUbicacion(Request|array $request, $conn = null)
     {
 
         $data = $request instanceof Request
@@ -76,7 +77,7 @@ class UbicacionController
             throw new ApiException('usuario_required', 'Usuario es requerido', 400);
         }
 
-        $result = $this->ubicacionModel->saveUbicacion(trim($data['codUbicacion']), trim($data['pallet']), trim($data['valeI']), trim($data['valeS']), trim($data['usuario']), trim($data['almacenDest']));
+        $result = $this->ubicacionModel->saveUbicacion(trim($data['codUbicacion'] ?? ''), trim($data['pallet']), trim($data['valeI']), trim($data['valeS']), trim($data['usuario']), trim($data['almacenDest'] ?? ''), $conn);
 
         if (!$result) {
             throw new ApiException('failed_save_ubi', 'Error al guardar la ubicación desconocido', 400);
