@@ -151,3 +151,12 @@ Stack trace:
 #6 D:\WebSites\movAlmacen\API2\app\core\Router.php(98): TransferenciaController->GenerarOTR(Object(Request))
 #7 D:\WebSites\movAlmacen\API2\index.php(13): Router->resolve()
 #8 {main}
+[27-Oct-2026 09:19:30 America/Lima] Unhandled API exception: TypeError: PalletModel::UpdateVinculoPallet(): Argument #3 ($item) must be of type string, null given, called in D:\WEBSITES\movAlmacen\API2\app\controllers\ValeController.php on line 89 and defined in D:\WEBSITES\movAlmacen\API2\app\models\PalletModel.php:314
+Stack trace:
+#0 D:\WEBSITES\movAlmacen\API2\app\controllers\ValeController.php(89): PalletModel->UpdateVinculoPallet()
+#1 D:\WEBSITES\movAlmacen\API2\app\controllers\ValeController.php(56): ValeController->registrarVale()
+#2 D:\WEBSITES\movAlmacen\API2\app\core\Database.php(96): ValeController->{closure}()
+#3 D:\WEBSITES\movAlmacen\API2\app\controllers\ValeController.php(56): Database::transaction()
+#4 D:\WEBSITES\movAlmacen\API2\app\core\Router.php(98): ValeController->GenerarVale()
+#5 D:\WEBSITES\movAlmacen\API2\index.php(13): Router->resolve()
+#6 {main}

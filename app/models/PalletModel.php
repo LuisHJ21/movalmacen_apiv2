@@ -262,8 +262,8 @@ class PalletModel
             $dividendo = floatval($datos['PESO']);
             $divisor = $datos['PESO_UND'] !== "" ? floatval($datos['PESO_UND']) : 1;
 
-            $adicional =
-                (round($dividendo * $factor) % round($divisor * $factor)) / $factor;
+            $adicional
+                = (round($dividendo * $factor) % round($divisor * $factor)) / $factor;
 
             $bultos = $datos['NUM_BULTOS'] === "" ? intdiv(floatval($datos['PESO']), $divisor) : $datos['NUM_BULTOS'];
 
@@ -300,7 +300,7 @@ class PalletModel
         $respuesta = [
             'dataItems' => $dataItems,
             'dataArticulo' => $dataArticulo ?? [],
-            'dataPallet' => $dataPallet
+            'dataPallet' => $dataPallet,
 
         ];
 
@@ -323,7 +323,7 @@ class PalletModel
 
 
 
-        $esSalida = $tipoMov === 'S';
+        $esSalida = substr($tipoMov, 0, 1)  === 'S';
 
         $sql = $esSalida
             ? "BEGIN USP_VINCULAR_SALIDA_PALLETDET(:pallet, :mov, :org, :item, :codparte); END;"
@@ -354,12 +354,16 @@ class PalletModel
         }
 
 
-        if (!Database::execute($stmt)) {
+        $rs = Database::execute($stmt);
+
+        if ($rs == false) {
+
             throw new ApiException(
                 'vinculo_fail',
                 oci_error($stmt)['message'] ?? 'Error al vincular pallet.',
                 500
             );
+
         }
 
         oci_free_statement($stmt);

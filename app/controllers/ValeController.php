@@ -86,15 +86,17 @@ class ValeController
 
 
             if ($data['tMov'] !== 'I04') {
-                $this->palletModel->UpdateVinculoPallet(
+                $vinculo = $this->palletModel->UpdateVinculoPallet(
                     $conn,
-                    $articulo['numPallet'] ?? '',
+                    $articulo['pallet'] ?? '',
                     $articulo['item'],
                     $det_vale['message']['nromov'],
                     $det_vale['message']['orgmov'],
                     substr($data['tMov'], 0, 1),
                     $codParte
                 );
+
+
             }
 
             if (isset($data['pallet']) && trim($data['pallet']) != "" && $data['tMov'] === 'S04') {
