@@ -24,11 +24,25 @@ class TransferPalletController
             throw new ApiException('palletD_Empty', 'Pallet destino es requerido', 400);
         }
 
-        if (!is_array($data) || !isset($data['detalles']) || !is_array($data['detalles']) || empty($data['detalles'])) {
+        if (!isset($data['usuario']) || !is_string($data['usuario']) || trim($data['usuario']) === '') {
+            throw new ApiException('usuario_required', 'Usuario es requerido', 400);
+        }
+
+        // El body trae "detalle" (se acepta también "detalles")
+        $detalles = $data['detalle'] ?? $data['detalles'] ?? null;
+        if (!is_array($detalles) || empty($detalles)) {
             throw new ApiException('detalles_Empty', 'Las cajas son requeridas', 400);
         }
 
-        $result = $this->transfer->SaveTransPallet($data['palletO'], $data['palletD'], $data['usuario'], $data['detalles']);
+        foreach ($detalles as $i => $detalle) {
+            if (!is_array($detalle) || !isset($detalle['traza'], $detalle['peso'], $detalle['articulo']) || !is_numeric($detalle['peso']) || (float) $detalle['peso'] <= 0) {
+                throw new ApiException('detalle_invalido', 'Detalle ' . ($i + 1) . ': traza, peso y artículo son requeridos', 400);
+            }
+        }
+
+        $result = $this->transfer->SaveTransPallet(trim($data['palletO']), trim($data['palletD']), trim($data['usuario']), $detalles);
+
+        header('Cache-Control: no-store');
 
 
         return [
