@@ -160,3 +160,75 @@ Stack trace:
 #4 D:\WEBSITES\movAlmacen\API2\app\core\Router.php(98): ValeController->GenerarVale()
 #5 D:\WEBSITES\movAlmacen\API2\index.php(13): Router->resolve()
 #6 {main}
+[28-Oct-2026 12:47:29 America/Lima] Oracle: EL PESO que queda disponible es  y NO 2
+[28-Oct-2026 12:48:39 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 2
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 87
+ORA-06512: at line 1
+[28-Oct-2026 12:55:09 America/Lima] Oracle: ORA-20001: EL PESO  es
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 12:56:01 America/Lima] Oracle: ORA-20001: EL PESO  es
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 12:56:47 America/Lima] Oracle: ORA-20001: EL PESO  es
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:09:09 America/Lima] Oracle: ORA-20001: EL PESO  es
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:10:53 America/Lima] Oracle: ORA-20001: EL PESO  es 2
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:11:52 America/Lima] Oracle: ORA-20001: EL PESO  es 2
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:13:19 America/Lima] Unhandled API exception: Error: Undefined constant "SQL_INTEGER" in D:\WEBSITES\movAlmacen\API2\app\models\TransferPalletModel.php:22
+Stack trace:
+#0 D:\WEBSITES\movAlmacen\API2\app\core\Database.php(99): TransferPalletModel->{closure}()
+#1 D:\WEBSITES\movAlmacen\API2\app\models\TransferPalletModel.php(12): Database::transaction()
+#2 D:\WEBSITES\movAlmacen\API2\app\controllers\TransferPalletController.php(43): TransferPalletModel->SaveTransPallet()
+#3 D:\WEBSITES\movAlmacen\API2\app\core\Router.php(98): TransferPalletController->GenerarTraslado()
+#4 D:\WEBSITES\movAlmacen\API2\index.php(13): Router->resolve()
+#5 {main}
+[28-Oct-2026 15:19:01 America/Lima] Oracle: ORA-20001: EL PESO  es 3
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:31:10 America/Lima] Oracle: ORA-20001: EL PESO  es 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:31:43 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 89
+ORA-06512: at line 1
+[28-Oct-2026 15:32:31 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 89
+ORA-06512: at line 1
+[28-Oct-2026 15:33:17 America/Lima] Oracle: ORA-20001: EL PESO  es 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 24
+ORA-06512: at line 1
+[28-Oct-2026 15:34:01 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 92
+ORA-06512: at line 1
+[28-Oct-2026 15:34:53 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 94
+ORA-06512: at line 1
+[28-Oct-2026 15:35:12 America/Lima] Oracle: ORA-20001: EL PESO que queda disponible es  y NO 30
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 96
+ORA-06512: at line 1
+[28-Oct-2026 15:36:50 America/Lima] Oracle: ORA-20001: variables PA00027869 0 1
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1
+[28-Oct-2026 15:38:30 America/Lima] Oracle: ORA-20001: variables PA00027869 0 1
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1
+[28-Oct-2026 15:38:53 America/Lima] Oracle: ORA-20001: variables PA00027869 0 1
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1
+[28-Oct-2026 15:39:27 America/Lima] Oracle: ORA-20001: variables PA00027869 0 1
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1
+[28-Oct-2026 15:43:32 America/Lima] Oracle: ORA-20001: variables PA00027869 0 1
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1
+[28-Oct-2026 15:46:04 America/Lima] Oracle: ORA-20001: variables PA00027869 001 00996 100009.0007
+ORA-06512: at "RF_PRUEBA7.USP_INSERTA_HISTORIAL_PALLET_TRASLADO", line 25
+ORA-06512: at line 1

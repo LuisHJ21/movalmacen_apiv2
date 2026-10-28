@@ -19,6 +19,7 @@ class ApiException extends RuntimeException
             throw new InvalidArgumentException('El estado HTTP del error debe estar entre 400 y 599');
         }
 
+
         parent::__construct($message, 0, $previous);
         $this->errorCode = $errorCode;
         $this->statusCode = $statusCode;

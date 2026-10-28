@@ -39,4 +39,4 @@ $router->post('/transferencia', 'TransferenciaController@GenerarOTR');
 $router->get('/plandiario', 'PlanDiarioController@obtenerPlanDiarioActivo');
 
 $router->post('/caja/leer', 'CajaController@leer');
-$router->post('/transferPallet', 'TransferPalletController@GenerarTraslado');
+$router->post('/transferpallet', 'TransferPalletController@GenerarTraslado');

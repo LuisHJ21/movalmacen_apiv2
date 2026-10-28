@@ -52,17 +52,20 @@ class Database
 
             if (($error['code'] ?? 0) >= 0 && $error['code'] <= 999) {
                 $msg = trim(preg_replace('/^ORA-\d+:\s*/', '', strtok($error['message'], "\n")));
+                error_log('Oracle: ' . $error['message']);
                 throw new ApiException('ora_server', $msg, 409);
             }
 
             if (($error['code'] ?? 0) >= 1000 && $error['code'] <= 1999) {
                 $msg = trim(preg_replace('/^ORA-\d+:\s*/', '', strtok($error['message'], "\n")));
+                error_log('Oracle: ' . $error['message']);
                 throw new ApiException('ora_execute', $msg, 409);
             }
 
-            // Errores de negocio de los procedimientos/triggers (RAISE_APPLICATION_ERROR: ORA-20000 a ORA-20999)
+
             if (($error['code'] ?? 0) >= 20000 && $error['code'] <= 20999) {
                 $msg = trim(preg_replace('/^ORA-\d+:\s*/', '', strtok($error['message'], "\n")));
+                error_log('Oracle: ' . $error['message']);
                 throw new ApiException('ora_transaction', $msg, 409);
             }
 

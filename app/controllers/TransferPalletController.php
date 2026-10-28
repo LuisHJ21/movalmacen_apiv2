@@ -28,7 +28,7 @@ class TransferPalletController
             throw new ApiException('usuario_required', 'Usuario es requerido', 400);
         }
 
-        // El body trae "detalle" (se acepta también "detalles")
+
         $detalles = $data['detalle'] ?? $data['detalles'] ?? null;
         if (!is_array($detalles) || empty($detalles)) {
             throw new ApiException('detalles_Empty', 'Las cajas son requeridas', 400);
