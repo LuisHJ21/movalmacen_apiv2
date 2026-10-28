@@ -6,6 +6,7 @@ require_once __DIR__ . '/../controllers/PalletController.php';
 require_once __DIR__ . '/../controllers/AlmacenController.php';
 require_once __DIR__ . '/../controllers/TransferenciaController.php';
 require_once __DIR__ . '/../controllers/PlanDiarioController.php';
+require_once __DIR__ . '/../controllers/TransferPalletController.php';
 
 
 $router->post('/login', 'AuthController@login');
@@ -38,3 +39,4 @@ $router->post('/transferencia', 'TransferenciaController@GenerarOTR');
 $router->get('/plandiario', 'PlanDiarioController@obtenerPlanDiarioActivo');
 
 $router->post('/caja/leer', 'CajaController@leer');
+$router->post('/transferPallet', 'TransferPalletController@GenerarTraslado');
