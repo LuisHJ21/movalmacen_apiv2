@@ -310,7 +310,6 @@ class PalletModel
         return $respuesta;
     }
 
-
     public function UpdateVinculoPallet(
         $conn,
         string $pallet,
@@ -363,7 +362,6 @@ class PalletModel
                 oci_error($stmt)['message'] ?? 'Error al vincular pallet.',
                 500
             );
-
         }
 
         oci_free_statement($stmt);
