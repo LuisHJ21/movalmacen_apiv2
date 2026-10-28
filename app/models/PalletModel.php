@@ -79,9 +79,16 @@ class PalletModel
 
         if ($r != false) {
             $codigoArti = "";
+            // USF_INFO_VALES_OT_OV puede devolver el mismo ítem repetido (ej. PA00027869 ítem 1): cada ítem va una sola vez
+            $itemsVistos = [];
             while ($row = oci_fetch_array($cursor, OCI_ASSOC + OCI_RETURN_NULLS)) {
 
                 $datos = array_map('trim', $row);
+
+                if (isset($itemsVistos[$datos['ITEM']])) {
+                    continue;
+                }
+                $itemsVistos[$datos['ITEM']] = true;
 
                 $factor = 10000;
                 $dividendo = floatval($datos['PESO']);
