@@ -35,7 +35,8 @@ class PalletController
             throw new ApiException('pallet_required', 'Número de pallet es requerido', 400);
         }
 
-        if (!isset($data['tipoMov']) || !is_string($data['tipoMov']) || trim($data['tipoMov']) === '') {
+        // tipoMov vacío ("") es válido: trae todos los ítems sin filtrar por movimiento (ej. transferencia entre pallets)
+        if (!isset($data['tipoMov']) || !is_string($data['tipoMov'])) {
             throw new ApiException('movement_type_required', 'Tipo de movimiento es requerido', 400);
         }
 

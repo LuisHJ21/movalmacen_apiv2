@@ -36,3 +36,5 @@ $router->get('/vale/detalle', 'ValeController@GetValeDetalle');
 $router->post('/transferencia', 'TransferenciaController@GenerarOTR');
 
 $router->get('/plandiario', 'PlanDiarioController@obtenerPlanDiarioActivo');
+
+$router->post('/caja/leer', 'CajaController@leer');
