@@ -10,8 +10,7 @@ class TransferPalletModel
 
 
         return Database::transaction(function ($conn) use ($palletO, $palletD, $usuario, $detalles) {
-            // cantidad va como texto con punto y 4 decimales (ej. "15.5000") y se convierte en Oracle con el separador
-            // decimal explícito: OCI_B_INT truncaba los decimales y un texto dependería del NLS de la sesión
+
             $sql = "begin USP_INSERTA_historial_pallet_traslado(:palletO,:palletD,:traza,"
                 . "TO_NUMBER(:cantidad, '999999999990D9999', 'NLS_NUMERIC_CHARACTERS=''.,'''),"
                 . ":usuario,:articulo,:ot); end;";
