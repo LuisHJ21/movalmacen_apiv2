@@ -10,20 +10,24 @@ class TransferPalletModel
 
 
         return Database::transaction(function ($conn) use ($palletO, $palletD, $usuario, $detalles) {
-            $sql = "begin USP_INSERTA_historial_pallet_traslado(:palletO,:palletD,:traza,:cantidad,:usuario,:articulo,:ot); end;";
+            // cantidad va como texto con punto y 4 decimales (ej. "15.5000") y se convierte en Oracle con el separador
+            // decimal explícito: OCI_B_INT truncaba los decimales y un texto dependería del NLS de la sesión
+            $sql = "begin USP_INSERTA_historial_pallet_traslado(:palletO,:palletD,:traza,"
+                . "TO_NUMBER(:cantidad, '999999999990D9999', 'NLS_NUMERIC_CHARACTERS=''.,'''),"
+                . ":usuario,:articulo,:ot); end;";
 
             $stmt = Database::prepare($conn, $sql);
 
 
             $traza = '';
-            $cantidad = 0;
+            $cantidad = '';
             $articulo = '';
             $ot = '';
 
             Database::bind($stmt, ':palletO', $palletO, 10);
             Database::bind($stmt, ':palletD', $palletD, 10);
             Database::bind($stmt, ':traza', $traza, 20);
-            Database::bind($stmt, ':cantidad', $cantidad, -1, OCI_B_INT);
+            Database::bind($stmt, ':cantidad', $cantidad, 20);
             Database::bind($stmt, ':usuario', $usuario);
             Database::bind($stmt, ':articulo', $articulo, 12);
             Database::bind($stmt, ':ot', $ot, 10);
@@ -31,7 +35,7 @@ class TransferPalletModel
             foreach ($detalles as $detalle) {
 
                 $traza = trim((string) ($detalle['traza'] ?? ''));
-                $cantidad =  ($detalle['peso'] ?? '');
+                $cantidad = number_format(round((float) ($detalle['peso'] ?? 0), 4), 4, '.', '');
                 $articulo = trim((string) ($detalle['articulo'] ?? ''));
                 $ot = trim((string) ($detalle['ot'] ?? ''));
 
