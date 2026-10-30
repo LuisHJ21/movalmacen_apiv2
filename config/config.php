@@ -28,5 +28,5 @@ const DB_DATA = [
     'produccion' => ["ref_fisholg", "ref_fisholg", "ORCL_FISHOLG_WEB"],
 ];
 
-const APP_URL = '/movalmacen/api2';
-const APP_NAME = 'MOVALMAEN';
+const APP_URL = '/movalmacen/api';
+const APP_NAME = 'MOVALMACEN';
