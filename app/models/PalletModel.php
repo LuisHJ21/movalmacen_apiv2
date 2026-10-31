@@ -213,6 +213,7 @@ class PalletModel
                 and am.nro_vale=vm.nro_vale (+)
                 and ppv.cod_parte=pp.cod_parte_producc(+)
                 and vm.tipo_mov=t.tipo_mov(+)
+                and pd.peso>0
                 and pd.NUM_PALLET = :pallet
                 ORDER BY pd.ITEM";
 
